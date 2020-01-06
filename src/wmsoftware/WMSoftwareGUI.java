@@ -106,6 +106,7 @@ public class WMSoftwareGUI extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jCheckBoxIndividualMouse2 = new javax.swing.JCheckBox();
         jCheckBoxAveMouse2 = new javax.swing.JCheckBox();
+        jButton2 = new javax.swing.JButton();
 
         jDialog1.setTitle("Select files");
         jDialog1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -346,6 +347,13 @@ public class WMSoftwareGUI extends javax.swing.JFrame {
 
         jCheckBoxAveMouse2.setText("Average mouse");
 
+        jButton2.setText("jButton2");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -368,6 +376,9 @@ public class WMSoftwareGUI extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jCheckBoxAveMouse2)))
                 .addContainerGap(242, Short.MAX_VALUE))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addComponent(jButton2)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -392,7 +403,9 @@ public class WMSoftwareGUI extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jCheckBoxIndividualMouse2)
                     .addComponent(jCheckBoxAveMouse2))
-                .addContainerGap(99, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton2)
+                .addContainerGap(69, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Generate Plots", jPanel3);
@@ -440,7 +453,6 @@ public class WMSoftwareGUI extends javax.swing.JFrame {
 //        Fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 //        Fc.showOpenDialog(this);
 //        dir = Fc.getSelectedFile();
-
         //loop through measures to be calculated
         for (int i = bs.nextSetBit(0); i >= 0; i = bs.nextSetBit(i + 1)) {
             String resultName = "";
@@ -771,7 +783,7 @@ public class WMSoftwareGUI extends javax.swing.JFrame {
                                 xImage = this.thresholdedSurfaceFit3(ipResTime, xImage);
                                 yImage = this.thresholdedSurfaceFit3(ipResTime, yImage);
                                 result = this.resizeImage(ipResTime, this.divergence(xImage, yImage).getProcessor());
-         //                       System.out.println("divergence" + "_T");
+                                //                       System.out.println("divergence" + "_T");
                                 break;
                             case 2: //Curl
                                 output = "curl";
@@ -780,13 +792,13 @@ public class WMSoftwareGUI extends javax.swing.JFrame {
                                 xImage = this.thresholdedSurfaceFit3(ipResTime, xImage);
                                 yImage = this.thresholdedSurfaceFit3(ipResTime, yImage);
                                 result = this.resizeImage(ipResTime, this.curl(xImage, yImage).getProcessor());
-         //                       System.out.println("curl" + "_T");
+                                //                       System.out.println("curl" + "_T");
                                 break;
                             case 3: //Heat map
                                 output = "hm";
                                 rMeasure = this.vectorMagnitude(measure);
                                 result = this.createImage(series, rMeasure);
-         //                       System.out.println("Heat map" + "_T");
+                                //                       System.out.println("Heat map" + "_T");
                                 break;
                             case 4: //Gradient
                                 output = "grad";
@@ -794,11 +806,11 @@ public class WMSoftwareGUI extends javax.swing.JFrame {
                                 image = this.createImage(series, rMeasure);
                                 image = this.thresholdedSurfaceFit3(ipResTime, image);
                                 result = this.resizeImage(ipResTime, this.gradient(image).getProcessor());
-         //                       System.out.println("gradient" + "_T");
+                                //                       System.out.println("gradient" + "_T");
                                 break;
                         }
-                        if(j!=0){
-                        this.saveHeatMap(resultHMap + "_" + output + "_T" + ds_counter + "_M" + mouse, result.getProcessor());
+                        if (j != 0) {
+                            this.saveHeatMap(resultHMap + "_" + output + "_T" + ds_counter + "_M" + mouse, result.getProcessor());
                         }
                         if (j == Integer.MAX_VALUE) {
                             break;
@@ -815,6 +827,121 @@ public class WMSoftwareGUI extends javax.swing.JFrame {
         }
         System.out.println("Button click done.");
     }//GEN-LAST:event_jButtonGenerateMapsActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        if (jCheckBoxIndividualMouse2.isSelected() || jCheckBoxAveMouse2.isSelected()) {
+            BitSet bs = new BitSet(4);
+
+            bs.set(0, jCheckBoxRDistvRVel.isSelected());
+            bs.set(1, jCheckBoxRDistvRVelaP.isSelected());
+            bs.set(2, jCheckBoxRDistvRVelpP.isSelected());
+            bs.set(3, jCheckBoxRDistvRVelErr.isSelected());
+
+            //bin size for binning values
+            userBin = Double.parseDouble(jTextFieldUserBin.getText());
+
+            //Select directory to store files
+            JFileChooser Fc = new JFileChooser();
+            Fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+            Fc.showOpenDialog(this);
+            dir = Fc.getSelectedFile();
+
+            int ds_counter = 0;
+            for (DataStore ds : dss) {
+                HashMap dispHMap = ds.getHMap("Displacement");
+                if (dispHMap.isEmpty()) {
+                    JOptionPane.showMessageDialog(frame, "Displacement hashmap is empty. Please calculate displacement.", "ERROR", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                for (int i = bs.nextSetBit(0); i >= 0; i = bs.nextSetBit(i + 1)) {
+                    String resultName = "";
+                    switch (i) {
+
+                        case 0: //rvel
+                            resultName = "Velocity";
+                            break;
+
+                        case 1: //rvel along pt
+                            resultName = "Velocity along Platform";
+                            break;
+
+                        case 2://rvel p pt
+                            resultName = "Velocity perpendicular Platform";
+                            break;
+
+                        case 3://vel err
+                            resultName = "Velocity Error";
+                            break;
+                    }
+
+                    HashMap resultHMap = resultHMap = ds.getHMap(resultName);
+
+                    int size = ds.getTotalMice();
+                    for (int mouse = 0; mouse < size; mouse++) {
+                        DataTrace_ver1 DispDt = (DataTrace_ver1) dispHMap.get(mouse);
+                        DataTrace_ver1 resultDt = (DataTrace_ver1) resultHMap.get(mouse);
+                        ArrayList<Double> dist = this.vectorMagnitude(DispDt);
+                        ArrayList<Double> result = this.vectorMagnitude(resultDt);
+
+                        //add xy data to datatrace
+                        DataTrace_ver1 distVmeasure = new DataTrace_ver1();
+                        for (int j = 0; j < dist.size() && j < result.size(); j++) {
+                            distVmeasure.addData(dist.get(j), result.get(j));
+                        }
+                        //binInX and DO NOT restore original order
+                        distVmeasure = distVmeasure.binData(userBin, true, false);
+
+                        //1st: fit to polynomial, get parameters of fit and plot
+                        //convert dataTrace's arraylist<Double> to double[]
+                        ArrayList<Double> dbl = (ArrayList<Double>) distVmeasure.getX();
+                        double[] xData = dbl.stream()
+                                .mapToDouble(Double::doubleValue)
+                                .toArray();
+                        dbl = (ArrayList<Double>) distVmeasure.getY();
+                        double[] yData = dbl.stream()
+                                .mapToDouble(Double::doubleValue)
+                                .toArray();
+                        CurveFitter cf = new CurveFitter(xData, yData);
+                        cf.doFit(CurveFitter.POLY2);
+                        double[] para = cf.getParams();
+                        Plot plot = cf.getPlot();
+
+                        //2nd: save decorate plot and save plot
+                        plot.setXYLabels("Distance", resultName);
+                        String title = "Dist vs R" + resultName + "_M" + mouse;
+//                        PlotWindow pw = plot.show();
+//                        pw.setTitle(title);
+                        ImagePlus imp = plot.getImagePlus();
+                        imp.setTitle(title);
+                        new FileSaver(imp).saveAsTiff(dir.getPath() + File.separator + title + ".tif");
+
+                        //3rd: calculate Rm from fit parameters
+                        double B0 = para[0];
+                        double B1 = para[1];
+                        double B2 = para[2];
+                        double[] Rm = new double[3];
+                        double det = 48.10488 + (72 * B1);
+                        double thetam1 = (9.42 + Math.sqrt(det)) / 6;
+                        double thetam2 = (9.42 - Math.sqrt(det)) / 6;
+                        double RmValue = (Math.pow(thetam1, 2) - (3.14 * thetam1) + 3.287) / (2 * (B2 + 1));
+                        Rm[0] = thetam1;
+                        Rm[1] = thetam2;
+                        Rm[2] = RmValue;
+//TO DO - Save the calculated RmValue. In a hashmap? Write it out as a file?
+                    }
+                    if (i == Integer.MAX_VALUE) {
+                        break;
+                    }
+                }
+                ds_counter++;
+            }
+        } else {
+            JOptionPane.showMessageDialog(frame, "Please select individual mouse or average mouse.", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+        System.out.println("End of button press");
+    }//GEN-LAST:event_jButton2ActionPerformed
 
 //    /**
 //     * Class Measures to calculate different water maze measures given xy data
@@ -1252,6 +1379,7 @@ public class WMSoftwareGUI extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroupPlotGroupDataBy;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButtonCalculateMeasures;
     private javax.swing.JButton jButtonGenerateMaps;
     private javax.swing.JButton jButtonReadFiles;
