@@ -25,6 +25,7 @@ public class DataStore {
 //    private ArrayList<Mouse> Mice = new ArrayList<>();
     private HashMap<Integer, DataTrace_ver1> position = null;
     private HashMap<Integer, ArrayList<Integer>> residenceTime = null;
+    
     private HashMap<Integer, DataTrace_ver1> displacement = null;
     private HashMap<Integer, DataTrace_ver1> velocity = null;
     private HashMap<Integer, DataTrace_ver1> velocityAPt = null;

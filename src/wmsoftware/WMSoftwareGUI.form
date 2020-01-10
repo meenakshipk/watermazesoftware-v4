@@ -132,7 +132,7 @@
                               <Component id="jButtonUploadFiles" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jButtonReadFiles" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="204" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="287" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -238,7 +238,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jCheckBoxResTime" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -250,7 +250,7 @@
                           <Component id="jButtonCalculateMeasures" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="jCheckBoxRVelErr" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="44" max="32767" attributes="0"/>
+                      <EmptySpace pref="8" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jCheckBoxASCIIvector" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabelMaps1" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -258,9 +258,19 @@
                           <Component id="jCheckBoxGradient" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="jCheckBoxDivergence" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="jCheckBoxCurl" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Component id="jCheckBoxIndividualMouse" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jCheckBoxAverageMouse" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="jCheckBoxxImg" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                              <Component id="jCheckBoxyImg" min="-2" max="-2" attributes="0"/>
+                          </Group>
                           <Component id="jButtonGenerateMaps" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="173" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="191" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -296,14 +306,30 @@
                               <Component id="jCheckBoxGradient" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jCheckBoxRVelErr" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jButtonCalculateMeasures" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jButtonGenerateMaps" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jCheckBoxRVelErr" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jCheckBoxxImg" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jCheckBoxyImg" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jCheckBoxIndividualMouse" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jCheckBoxAverageMouse" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
                       </Group>
-                      <EmptySpace pref="110" max="32767" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jButtonCalculateMeasures" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButtonGenerateMaps" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace pref="91" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -396,6 +422,26 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonGenerateMapsActionPerformed"/>
               </Events>
             </Component>
+            <Component class="javax.swing.JCheckBox" name="jCheckBoxIndividualMouse">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Individual mouse"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JCheckBox" name="jCheckBoxAverageMouse">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Average Mouse"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JCheckBox" name="jCheckBoxxImg">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="xImg"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JCheckBox" name="jCheckBoxyImg">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="yImg"/>
+              </Properties>
+            </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="jPanel3">
@@ -423,17 +469,11 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jTextFieldUserBin" min="-2" pref="51" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="jCheckBoxIndividualMouse2" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="jCheckBoxAveMouse2" min="-2" max="-2" attributes="0"/>
-                          </Group>
                       </Group>
-                      <EmptySpace pref="242" max="32767" attributes="0"/>
+                      <EmptySpace pref="325" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="jButton2" min="-2" max="-2" attributes="0"/>
+                      <Component id="jButtonGeneratePlots" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -456,15 +496,8 @@
                       <Component id="jCheckBoxRDistvRVelpP" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jCheckBoxRDistvRVelErr" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jCheckBoxIndividualMouse2" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jCheckBoxAveMouse2" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jButton2" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
+                      <Component id="jButtonGeneratePlots" min="-2" max="-2" attributes="0"/>
                       <EmptySpace pref="69" max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -509,30 +542,12 @@
                 <Property name="text" type="java.lang.String" value="0.00"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel8">
+            <Component class="javax.swing.JButton" name="jButtonGeneratePlots">
               <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Tahoma" size="11" style="1"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Output data:"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JCheckBox" name="jCheckBoxIndividualMouse2">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Individual mouse"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JCheckBox" name="jCheckBoxAveMouse2">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Average mouse"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JButton" name="jButton2">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="jButton2"/>
+                <Property name="text" type="java.lang.String" value="Generate Plots"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonGeneratePlotsActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>
